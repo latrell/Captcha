@@ -2,7 +2,7 @@
 namespace Latrell\Captcha;
 
 use Gregwar\Captcha\CaptchaBuilder;
-use Config, Str, Session, Hash, Response;
+use Config, Str, Session, Hash, Response, URL;
 
 /**
  * 验证码
