@@ -10,21 +10,7 @@ This library is not maintained for 3rd party use.
 
 ## Installation
 
-The Captcha Service Provider can be installed via [Composer](http://getcomposer.org) by requiring the
-`latrell/captcha` package and setting the `minimum-stability` to `dev` (required for Laravel 4) in your
-project's `composer.json`.
-
-```json
-{
-    "require": {
-        "laravel/framework": "4.0.*",
-        "latrell/captcha": "dev-master"
-    },
-    "minimum-stability": "dev"
-}
-```
-
-Update your packages with ```composer update``` or install with ```composer install```.
+composer require latrell/captcha dev-master
 
 ## Usage
 
@@ -45,7 +31,7 @@ Find the `aliases` key in `app/config/app.php`.
 ```php
     'aliases' => array(
         // ...
-        'Captcha' => 'Mews\Captcha\Facades\Captcha',
+        'Captcha' => 'Latrell\Captcha\Facades\Captcha',
     )
 ```
 
@@ -84,8 +70,8 @@ Find the `aliases` key in `app/config/app.php`.
 
 ## Links
 
-* [L4 Captcha on Github](https://github.com/mewebstudio/captcha)
-* [L4 Captcha on Packagist](https://packagist.org/packages/mews/captcha)
+* [L4 Captcha on Github](https://github.com/latrell/captcha)
+* [L4 Captcha on Packagist](https://packagist.org/packages/Latrell/captcha)
 * [Captcha for Gregwar](https://github.com/Gregwar/Captcha)
 * [License](http://www.opensource.org/licenses/mit-license.php)
 * [Laravel website](http://laravel.com)
