@@ -10,7 +10,9 @@ This library is not maintained for 3rd party use.
 
 ## Installation
 
+```
 composer require latrell/captcha dev-master
+```
 
 ## Usage
 
