@@ -51,4 +51,17 @@ class Captcha
         Session::forget('captchaHash');
         return $captchaHash && Hash::check(Str::lower($value), $captchaHash);
     }
+
+    /**
+     * 返回验证码的图片地址。
+     * 你可以这样用：
+     * <img src="<?php echo Captcha::url(); ?>">
+     *
+     * @access public
+     * @return string
+     */
+    public static function url()
+    {
+        return URL::to('captcha?' . mt_rand(100000, 999999));
+    }
 }

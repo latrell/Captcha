@@ -73,7 +73,7 @@ Find the `aliases` key in `app/config/app.php`.
         }
 
         $content = Form::open(array(URL::to(Request::segment(1))));
-        $content .= '<p>' . HTML::image('captcha') . '</p>';
+        $content .= '<p>' . HTML::image(Captcha::url()) . '</p>';
         $content .= '<p>' . Form::text('captcha') . '</p>';
         $content .= '<p>' . Form::submit('Check') . '</p>';
         $content .= '<p>' . Form::close() . '</p>';
