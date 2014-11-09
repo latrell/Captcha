@@ -27,5 +27,11 @@ return [
     'interpolate' => true,
 
     // Disable all effects on the captcha image. Recommended to use when passing custom background images for the captcha.
-    'ignore_all_effects' => false
+    'ignore_all_effects' => false,
+
+    // Route name.
+    'route_name' => 'captcha',
+
+    // Validator name.
+    'validator_name' => 'captcha'
 ];

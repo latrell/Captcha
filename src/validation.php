@@ -1,6 +1,6 @@
 <?php
 
-Validator::extend('captcha', function($attribute, $value, $parameters)
+Validator::extend(Config::get('captcha::validator_name'), function($attribute, $value, $parameters)
 {
     return Captcha::check($value);
 });

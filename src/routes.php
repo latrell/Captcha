@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/captcha', function()
+Route::get(Config::get('captcha::route_name'), function()
 {
 	return app('captcha')->create();
 });
