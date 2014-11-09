@@ -2,3 +2,9 @@
 composer.phar
 composer.lock
 .DS_Store
+Thumbs.db
+.idea
+.metadata
+.settings
+.buildpath
+.project
