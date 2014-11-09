@@ -2,5 +2,5 @@
 
 Route::get('/captcha', function()
 {
-	return Captcha::create();
+	return app('captcha')->create();
 });

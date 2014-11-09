@@ -12,8 +12,8 @@ use Config, Str, Session, Hash, Response, URL;
  */
 class Captcha
 {
-    // Enable or disable the distortion.
-    protected $distortion = true;
+
+    protected $builder;
 
     // Builds a code until it is not readable by ocrad.
     // You'll need to have shell_exec enabled, imagemagick and ocrad installed.
@@ -29,46 +29,32 @@ class Captcha
     // Setting the picture quality.
     protected $quality = 80;
 
-    // Sets the background color to force it (this will disable many effects and is not recommended).
-    protected $background_color = null; // [0x00, 0x00, 0x00] or #000000
-
-
-    // Sets custom background images to be used as captcha background.
-    // It is recommended to disable image effects when passing custom images for background (ignore_all_effects).
-    // A random image is selected from the list passed, the full paths to the image files must be passed.
-    protected $background_images = [];
-
-    // Enable or disable the interpolation (enabled by default), disabling it will be quicker but the images will look uglier.
-    protected $interpolate = true;
-
-    // Disable all effects on the captcha image. Recommended to use when passing custom background images for the captcha.
-    protected $ignore_all_effects = false;
-
     public function __construct()
     {
+        $this->builder = new CaptchaBuilder();
+
         $configKey = 'captcha::';
 
-        $this->distortion = Config::get($configKey . 'distortion');
         $this->against_ocr = Config::get($configKey . 'against_ocr');
         $this->width = Config::get($configKey . 'width');
         $this->height = Config::get($configKey . 'height');
         $this->font = Config::get($configKey . 'font');
         $this->quality = Config::get($configKey . 'quality');
-        $this->background_color = Config::get($configKey . 'background_color'); // [0x00, 0x00, 0x00] or #000000
-        $this->background_images = Config::get($configKey . 'background_images');
-        $this->interpolate = Config::get($configKey . 'interpolate');
-        $this->ignore_all_effects = Config::get($configKey . 'ignore_all_effects');
 
-        if (! is_array($this->background_color) || ! is_string($this->background_color) || strlen($this->background_color) != 7 || $this->background_color{0} != '#') {
-            $this->background_color = [];
+        $background_color = Config::get($configKey . 'background_color');
+        if (is_string($background_color) && strlen($background_color) == 7 && $background_color{0} == '#') {
+            $r = hexdec($background_color{1} . $background_color{2});
+            $g = hexdec($background_color{3} . $background_color{4});
+            $b = hexdec($background_color{5} . $background_color{6});
+            $this->builder->setBackgroundColor($r, $g, $b);
+        } elseif (is_array($background_color) && count($background_color) == 3) {
+            $this->builder->setBackgroundColor($background_color[0], $background_color[1], $background_color[2]);
         }
-        if (is_string($this->background_color)) {
-            $this->background_color = [
-                hexdec($this->background_color{1} . $this->background_color{2}),
-                hexdec($this->background_color{3} . $this->background_color{4}),
-                hexdec($this->background_color{5} . $this->background_color{6})
-            ];
-        }
+
+        $this->builder->setDistortion(Config::get($configKey . 'distortion'));
+        $this->builder->setBackgroundImages(Config::get($configKey . 'background_images'));
+        $this->builder->setInterpolation(Config::get($configKey . 'interpolate'));
+        $this->builder->setIgnoreAllEffects(Config::get($configKey . 'ignore_all_effects'));
     }
 
     public static function instance()
@@ -83,19 +69,14 @@ class Captcha
     /**
      * 生成验证码并输出图片
      */
-    public static function create()
+    public function create()
     {
-        $builder = new CaptchaBuilder();
+        $method = $this->against_ocr ? 'buildAgainstOCR' : 'build';
 
-        $builder->setDistortion($this->distortion);
-        $builder->setBackgroundColor($this->background_color);
-        $builder->setBackgroundImages($this->background_images);
-        $builder->setInterpolation($this->interpolate);
-        $builder->setIgnoreAllEffects($this->ignore_all_effects);
-        $builder->{$this->against_ocr ? 'buildAgainstOCR' : 'build'}($this->width, $this->height, $this->font);
+        $this->builder->$method($this->width, $this->height, $this->font);
 
-        $data = $builder->get($this->quality);
-        $phrase = $builder->getPhrase();
+        $data = $this->builder->get($this->quality);
+        $phrase = $this->builder->getPhrase();
 
         Session::put('captcha_hash', Hash::make(Str::lower($phrase)));
 
