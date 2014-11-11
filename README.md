@@ -37,6 +37,9 @@ Find the `aliases` key in `app/config/app.php`.
     )
 ```
 
+Then publish the config file with `php artisan config:publish latrell/captcha`. This will add the file `app/config/packages/latrell/captcha/config.php`.
+This config file is the primary way you interact with Captcha.
+
 ## Example Usage
 
 ```php
