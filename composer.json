@@ -1,7 +1,7 @@
 {
     "name": "latrell/captcha",
-    "description": "Captcha Package for Laravel 4",
-    "keywords": ["L4", "Laravel 4", "Laravel", "Captcha", "security", "captcha image"],
+    "description": "Captcha Package for Laravel 5",
+    "keywords": ["L5", "Laravel 5", "Laravel", "Captcha", "security", "captcha image"],
     "license": "MIT",
     "authors": [
         {
@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "4.2.*",
-        "gregwar/captcha": "v1.0.11"
+        "illuminate/support": "5.0.*,5.1.*",
+        "gregwar/captcha": "1.*"
     },
     "autoload": {
         "psr-0": {

@@ -1,6 +1,8 @@
-# Captcha for Laravel 4
+For Laravel 4, please use the [1.1 branch](https://github.com/Latrell/Captcha/releases/tag/1.1)!
 
-A simple [Laravel 4](http://laravel.com/) service provider for including the [Captcha for Laravel 4](https://github.com/Gregwar/Captcha).
+# Captcha for Laravel 5
+
+A simple [Laravel 5](http://laravel.com/) service provider for including the [Captcha for Laravel 5](https://github.com/Gregwar/Captcha).
 
 This library is not maintained for 3rd party use.
 
@@ -19,39 +21,49 @@ composer require latrell/captcha dev-master
 To use the Captcha Service Provider, you must register the provider when bootstrapping your Laravel application. There are
 essentially two ways to do this.
 
-Find the `providers` key in `app/config/app.php` and register the Captcha Service Provider.
+Find the `providers` key in `config/app.php` and register the Captcha Service Provider.
 
 ```php
-    'providers' => array(
+    'providers' => [
         // ...
         'Latrell\Captcha\CaptchaServiceProvider',
-    )
+    ]
 ```
 
-Find the `aliases` key in `app/config/app.php`.
+Find the `aliases` key in `config/app.php`.
 
 ```php
-    'aliases' => array(
+    'aliases' => [
         // ...
         'Captcha' => 'Latrell\Captcha\Facades\Captcha',
-    )
+    ]
 ```
 
-Then publish the config file with `php artisan config:publish latrell/captcha`. This will add the file `app/config/packages/latrell/captcha/config.php`.
+Custom error messages.
+Add key `captcha` to `resources/lang/[local]/validation.php`
+
+```php
+return [
+	// ...
+	'captcha' => '图片验证码不正确。',
+];
+```
+
+Then publish the config file with `php artisan vendor:publish`. This will add the file `config/latrell-captcha.php`.
 This config file is the primary way you interact with Captcha.
 
 ## Example Usage
 
 ```php
 
-    // [your site path]/app/routes.php
+    // [your site path]/app/Http/routes.php
 
     Route::any('/captcha-test', function()
     {
 
         if (Request::getMethod() == 'POST')
         {
-            $rules =  array('captcha' => array('required', 'captcha'));
+            $rules =  ['captcha' => 'required|captcha'];
             $validator = Validator::make(Input::all(), $rules);
             if ($validator->fails())
             {
@@ -75,8 +87,8 @@ This config file is the primary way you interact with Captcha.
 
 ## Links
 
-* [L4 Captcha on Github](https://github.com/latrell/captcha)
-* [L4 Captcha on Packagist](https://packagist.org/packages/Latrell/captcha)
+* [L5 Captcha on Github](https://github.com/latrell/captcha)
+* [L5 Captcha on Packagist](https://packagist.org/packages/Latrell/captcha)
 * [Captcha for Gregwar](https://github.com/Gregwar/Captcha)
 * [License](http://www.opensource.org/licenses/mit-license.php)
 * [Laravel website](http://laravel.com)

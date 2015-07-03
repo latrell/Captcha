@@ -1,15 +1,10 @@
-<?php namespace Latrell\Captcha;
+<?php
+namespace Latrell\Captcha;
 
 use Illuminate\Support\ServiceProvider;
 
-class CaptchaServiceProvider extends ServiceProvider {
-
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+class CaptchaServiceProvider extends ServiceProvider
+{
 
 	/**
 	 * Bootstrap the application events.
@@ -18,7 +13,9 @@ class CaptchaServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('latrell/captcha');
+		$this->publishes([
+			__DIR__ . '/../../config/config.php' => config_path('latrell-captcha.php')
+		], 'config');
 
 		require __DIR__ . '/../../routes.php';
 		require __DIR__ . '/../../validation.php';
@@ -31,10 +28,12 @@ class CaptchaServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['captcha'] = $this->app->share(function($app)
-	    {
-	        return Captcha::instance();
-	    });
+		$this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'latrell-captcha');
+
+		$this->app['captcha'] = $this->app->share(function ($app)
+		{
+			return Captcha::instance();
+		});
 	}
 
 	/**
@@ -44,7 +43,8 @@ class CaptchaServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('captcha');
+		return array(
+			'captcha'
+		);
 	}
-
 }
