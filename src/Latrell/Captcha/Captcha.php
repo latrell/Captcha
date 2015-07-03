@@ -2,7 +2,8 @@
 namespace Latrell\Captcha;
 
 use Gregwar\Captcha\CaptchaBuilder;
-use Config, Str, Session, Hash, Response, URL;
+use Illuminate\Support\Str;
+use Config, Session, Hash, Response, URL;
 
 /**
  * 验证码
@@ -33,7 +34,7 @@ class Captcha
     {
         $this->builder = new CaptchaBuilder();
 
-        $configKey = 'captcha::';
+        $configKey = 'latrell-captcha.';
 
         $this->against_ocr = Config::get($configKey . 'against_ocr');
         $this->width = Config::get($configKey . 'width');
