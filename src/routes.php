@@ -1,6 +1,4 @@
 <?php
-
-Route::get(Config::get('latrell-captcha.route_name'), function()
-{
-	return app('captcha')->create();
-});
+Route::get(Config::get('latrell-captcha.route_name'), [
+	'uses' => 'Latrell\Captcha\CaptchaController@getIndex'
+]);
