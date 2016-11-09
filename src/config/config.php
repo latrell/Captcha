@@ -32,6 +32,9 @@ return [
     // Route name.
     'route_name' => 'captcha',
 
+	// Session middleware.
+	'middleware' => 'web',
+
     // Validator name.
     'validator_name' => 'captcha'
 ];
