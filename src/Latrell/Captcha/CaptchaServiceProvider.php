@@ -30,8 +30,7 @@ class CaptchaServiceProvider extends ServiceProvider
 	{
 		$this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'latrell-captcha');
 
-		$this->app['captcha'] = $this->app->share(function ($app)
-		{
+		$this->app->singleton('captcha', function ($app) {
 			return Captcha::instance();
 		});
 	}
