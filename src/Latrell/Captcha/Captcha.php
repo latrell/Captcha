@@ -114,6 +114,6 @@ class Captcha
         $md5 = substr(md5($uniqid), 12, 8); // 8位md5
         $uint = hexdec($md5);
         $uniqid = sprintf('%010u', $uint);
-        return URL::to('captcha?' . $uniqid);
+        return URL::to(Config::get('latrell-captcha.route_name') . '?' . $uniqid);
     }
 }
