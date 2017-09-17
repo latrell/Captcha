@@ -8,7 +8,7 @@ This library is not maintained for 3rd party use.
 
 ## Preview
 
-![Captchas examples](http://gregwar.com/captchas.png)
+![Captchas examples](https://camo.githubusercontent.com/d2ec7ccc16dacc36732ff2c6bad51df1bad2428b/687474703a2f2f677265677761722e636f6d2f63617074636861732e706e67)
 
 ## Installation
 
