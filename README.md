@@ -19,7 +19,7 @@ composer require latrell/captcha dev-master
 ## Usage
 
 To use the Captcha Service Provider, you must register the provider when bootstrapping your Laravel application. There are
-essentially two ways to do this.
+essentially two ways to do this (only for Laravel 5.4 or below).
 
 Find the `providers` key in `config/app.php` and register the Captcha Service Provider.
 

@@ -3,5 +3,8 @@ Validator::extend(config('latrell-captcha.validator_name'), function ($attribute
 	return Captcha::check($value);
 });
 Validator::replacer(config('latrell-captcha.validator_name'), function ($message, $attribute, $rule, $parameters) {
-	return $message ?: 'Image verification code is incorrect.';
+	if ($message === 'validation.captcha') {
+		$message = 'Image verification code is incorrect.';
+	}
+	return $message;
 });
