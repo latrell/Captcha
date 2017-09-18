@@ -31,10 +31,10 @@
 	"extra" : {
 		"laravel" : {
 			"providers" : [
-				"Barryvdh\\Debugbar\\ServiceProvider"
+				"Latrell\\Captcha\\CaptchaServiceProvider"
 			],
 			"aliases" : {
-				"Debugbar" : "Barryvdh\\Debugbar\\Facade"
+				"Captcha" : "Latrell\\Captcha\\Facades\\Captcha"
 			}
 		}
 	}
